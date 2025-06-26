@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('systems', function (Blueprint $table) {
+        Schema::create('days', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('email')->nullable();
-            $table->string('logo');
-            $table->string('favicon');
-            $table->string('copyright')->nullable();
+            $table->enum('days', ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']);
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('systems');
+        Schema::dropIfExists('days');
     }
 };

@@ -1,11 +1,12 @@
 <?php
 
-use App\Http\Controllers\Api\ArchiveController;
-use App\Http\Controllers\Api\AuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Api\TripController;
-use App\Http\Controllers\Api\TripPerposeController;
 use Illuminate\Container\Attributes\Auth;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\TaskController;
+use App\Http\Controllers\Api\TripController;
+use App\Http\Controllers\Api\ArchiveController;
+use App\Http\Controllers\Api\TripPerposeController;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('/user-login', 'login');
@@ -32,4 +33,9 @@ Route::middleware('auth:api')->controller(ArchiveController::class)->group(funct
     Route::get('/get-trip-archive', 'index');
     Route::post('/trip-archive', 'store');
 
+});
+Route::middleware('auth:api')->controller(TaskController::class)->group(function () {
+    Route::get('/day-show', 'dayShow');
+    Route::post('/task-store', 'store');
+    Route::post('/task-delete', 'destroy');
 });

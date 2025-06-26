@@ -11,9 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('trip_perposes', function (Blueprint $table) {
+        Schema::create('custom_days', function (Blueprint $table) {
             $table->id();
-            $table->string('purpose');
+            $table->foreignId('task_type_id')->constrained('task_types')->onDelete('cascade');
+            $table->foreignId('custom_day')->constrained('days')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -23,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('trip_perposes');
+        Schema::dropIfExists('custom_days');
     }
 };

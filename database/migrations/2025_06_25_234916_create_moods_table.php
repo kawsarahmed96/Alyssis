@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('admin_settings', function (Blueprint $table) {
+        Schema::create('moods', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('email')->nullable();
-            $table->string('logo');
-            $table->string('favicon');
-            $table->string('copyright')->nullable();
-            $table->string('hotline')->nullable();
+            $table->enum('name', ['happy', 'sad', 'angry']);
+            $table->string('icon');
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('admin_settings');
+        Schema::dropIfExists('moods');
     }
 };
