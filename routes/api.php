@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Container\Attributes\Auth;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\TaskController;
 use App\Http\Controllers\Api\TripController;
 use App\Http\Controllers\Api\ArchiveController;
 use App\Http\Controllers\Api\TripPerposeController;
+use App\Http\Controllers\Api\UserMoodController;
+use App\Models\User;
 
 Route::controller(AuthController::class)->group(function () {
     Route::post('/user-login', 'login');
@@ -32,10 +33,13 @@ Route::middleware('auth:api')->controller(TripController::class)->group(function
 Route::middleware('auth:api')->controller(ArchiveController::class)->group(function () {
     Route::get('/get-trip-archive', 'index');
     Route::post('/trip-archive', 'store');
-
 });
 Route::middleware('auth:api')->controller(TaskController::class)->group(function () {
     Route::get('/day-show', 'dayShow');
     Route::post('/task-store', 'store');
     Route::post('/task-delete', 'destroy');
+});
+Route::middleware('auth:api')->controller(UserMoodController::class)->group(function () {
+    Route::post('/add-user-mood', 'store');
+    Route::post('/all_user_mood', 'index');
 });

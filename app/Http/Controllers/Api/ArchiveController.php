@@ -88,7 +88,7 @@ class ArchiveController extends Controller
                 'status' => true,
                 'message' => 'Archive created successfully',
             ], 201);
-            
+
         } catch (\Exception $e) {
 
             return response()->json([

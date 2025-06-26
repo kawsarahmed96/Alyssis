@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('mood_id')->constrained('moods')->onDelete('cascade');
-            $table->foreignId('excelent')->constrained('excelents')->onDelete('cascade');
+            $table->foreignId('excelent_id')->constrained('excelents')->onDelete('cascade');
             $table->text('thought')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
