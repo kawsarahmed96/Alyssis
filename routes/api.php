@@ -10,8 +10,13 @@ use App\Http\Controllers\Api\UserMoodController;
 use App\Models\User;
 
 Route::controller(AuthController::class)->group(function () {
+    Route::post('/user-signup', 'signup');
     Route::post('/user-login', 'login');
     Route::post('/user-logout', 'logout');
+
+    // otp verify
+    Route::post('/send-otp', [AuthController::class, 'sendOtp']);
+    Route::post('/verify-otp', [AuthController::class, 'verifyOtp']);
 });
 
 
@@ -32,6 +37,8 @@ Route::middleware('auth:api')->controller(TripController::class)->group(function
 
 Route::middleware('auth:api')->controller(ArchiveController::class)->group(function () {
     Route::get('/get-trip-archive', 'index');
+    Route::post('/trip-archive-update', 'update');
+    Route::post('/trip-archive-image_delete', 'imageDelete');
     Route::post('/trip-archive', 'store');
 });
 Route::middleware('auth:api')->controller(TaskController::class)->group(function () {

@@ -56,7 +56,7 @@ class User extends Authenticatable implements JWTSubject
     }
 
 
-    // implement 2 methods:
+    // implement 2 methods for token get
     public function getJWTIdentifier()
     {
         return $this->getKey();

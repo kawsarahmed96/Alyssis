@@ -88,7 +88,6 @@ class ArchiveController extends Controller
                 'status' => true,
                 'message' => 'Archive created successfully',
             ], 201);
-
         } catch (\Exception $e) {
 
             return response()->json([
@@ -118,9 +117,57 @@ class ArchiveController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+
+        $validator = validator::make($request->all(), [
+            'destination' => 'nullable|string|max:255',
+            'month' => 'nullable|integer',
+            'years' => 'nullable|integer',
+            'notes' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        if (!$request->id) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Archive not found',
+            ], 404);
+        }
+        $archive = Archive::where('id', $request->id)->update([
+            'user_id' => Auth::user()->id,
+            'destination' => $request->destination,
+            'month' => $request->month,
+            'years' => $request->years,
+            'notes' => $request->notes,
+        ]);
+        return response()->json([
+            'status' => true,
+            'message' => 'Archive updated successfully',
+            
+        ]);
+    }
+
+    // archive single image delete
+    public function imageDelete(Request $request)
+    {
+        Archive::with('images')->where('id', $request->id)->each(function ($archive) {
+            $archive->images->each(function ($image) {
+                ArchiveImage::where('id', $image->id)->delete();
+            });
+        });
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Image deleted successfully',
+        ]);
     }
 
     /**
