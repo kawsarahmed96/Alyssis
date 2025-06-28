@@ -179,5 +179,5 @@ class AuthController extends Controller
             'message' => 'Password reset successfully'
         ]);
     }
-    
+
 }
