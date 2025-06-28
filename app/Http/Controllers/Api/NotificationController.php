@@ -39,5 +39,10 @@ class NotificationController extends Controller
             'notification_time' => Carbon::now(),
             'is_read' => false
         ]);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Notification created successfully',
+        ]);
     }
 }

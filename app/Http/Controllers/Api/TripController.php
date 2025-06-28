@@ -38,9 +38,7 @@ class TripController extends Controller
             'notes' => 'nullable|string|max:1000',
             'budget' => 'required|numeric|min:0',
         ]);
-        // $purpose = TripPerpose::select('id')
-        //     ->orderBy('id', 'desc')
-        //     ->first();
+
 
         $trip =  Trip::where('user_id', Auth::id())
             ->where([

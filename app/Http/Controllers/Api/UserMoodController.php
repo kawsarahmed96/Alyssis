@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Validator;
 class UserMoodController extends Controller
 {
 
-    public function index (){
+    public function index()
+    {
         $userMoods = UserMood::with(['mood', 'excelent'])
             ->where('user_id', Auth::id())
             ->get();
@@ -55,9 +56,9 @@ class UserMoodController extends Controller
         }
 
         // Create UserMood entries for each excelent name
-        foreach ($explodeName as $excel) {
+        foreach ($explodeName as $excelent) {
 
-            $name =  Excelent::where('name', $excel)->each(function ($item) use ($mood, $request) {
+            $name =  Excelent::where('name', $excelent)->each(function ($item) use ($mood, $request) {
                 UserMood::create([
                     'user_id' => Auth::user()->id,
                     'mood_id' => $mood->id,
@@ -68,10 +69,9 @@ class UserMoodController extends Controller
             });
         }
 
-
-         return response()->json([
-                'status' => true,
-                'message' => 'User mood created successfully',
-            ], 201);
+        return response()->json([
+            'status' => true,
+            'message' => 'User mood created successfully',
+        ], 201);
     }
 }

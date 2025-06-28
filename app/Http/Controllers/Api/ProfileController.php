@@ -36,8 +36,7 @@ class ProfileController extends Controller
         return response()->json([
             'status' => true,
             'message' => 'Profile name and profile Photo retrive successfully',
-            'name' => $user->name,
-            'profile_photo' => $user->profile_photo,
+            'user' => $user
         ]);
     }
 

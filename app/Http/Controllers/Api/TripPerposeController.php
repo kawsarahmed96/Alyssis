@@ -11,28 +11,16 @@ class TripPerposeController extends Controller
 {
     public function index()
     {
-        $demo_data = [
-            ['id' => 1, 'purpose' => 'Business'],
-            ['id' => 2, 'purpose' => 'Leisure'],
-            ['id' => 3, 'purpose' => 'Adventure'],
-            ['id' => 4, 'purpose' => 'Family'],
-            ['id' => 5, 'purpose' => 'Education'],
-        ];
+      
+        $trip_perposes = TripPerpose::select('purpose')
+            ->orderBy('id', 'desc')
+            ->get();
 
         return response()->json([
             'status' => 200,
             'message' => 'Trip purposes retrieved successfully',
-            'data' => $demo_data,
+            'data' => $trip_perposes,
         ]);
-        // $trip_perposes = TripPerpose::select('purpose')
-        //     ->orderBy('id', 'desc')
-        //     ->get();
-
-        // return response()->json([
-        //     'status' => 200,
-        //     'message' => 'Trip purposes retrieved successfully',
-        //     'data' => $trip_perposes,
-        // ]);
     }
 
     //trip perpose store
