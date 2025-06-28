@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             DaySeeder::class,
-            MoodSeeder::class,
+            // MoodSeeder::class,
         ]);
     }
 }

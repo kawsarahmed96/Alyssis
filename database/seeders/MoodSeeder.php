@@ -43,6 +43,6 @@ class MoodSeeder extends Seeder
                 'icon' => $mood['icon'],
             ]);
         }
-      
+
     }
 }
