@@ -69,7 +69,6 @@ class ArchiveController extends Controller
                 'notes' => $request->notes,
             ]);
 
-            // $images = $request->file('image');
 
             // file upload
             foreach ($request->file('image') as $image) {
@@ -141,6 +140,8 @@ class ArchiveController extends Controller
                 'message' => 'Archive not found',
             ], 404);
         }
+
+
         $archive = Archive::where('id', $request->id)->update([
             'user_id' => Auth::user()->id,
             'destination' => $request->destination,
@@ -148,10 +149,25 @@ class ArchiveController extends Controller
             'years' => $request->years,
             'notes' => $request->notes,
         ]);
+
+
+        // file upload
+        foreach ($request->file('image') as $image) {
+            $filename = uniqid() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('uploads/archive'), $filename);
+            $url = 'uploads/archive/' . $filename;
+
+
+            ArchiveImage::create([
+                'archive_id' => $archive->id,
+                'image' => $url,
+            ]);
+        }
+
         return response()->json([
             'status' => true,
             'message' => 'Archive updated successfully',
-            
+
         ]);
     }
 

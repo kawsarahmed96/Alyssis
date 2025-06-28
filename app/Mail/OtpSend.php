@@ -31,7 +31,7 @@ class OtpSend extends Mailable
     {
         return new Envelope(
             from: 'ZtMhL@example.com',
-            subject: 'OTP SEND',
+            subject: 'OTP Send Successfully',
         );
     }
 
